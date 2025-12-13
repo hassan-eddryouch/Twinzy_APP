@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Twinzy</string>
+    
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Trouvez Votre Âme Jumelle</string>
+    <string name="onboarding_desc_1">Connectez-vous avec des personnes qui partagent votre vibe dans l\'univers cyberpunk</string>
+    <string name="onboarding_title_2">Swipez Vers le Futur</string>
+    <string name="onboarding_desc_2">Découvrez les rencontres nouvelle génération avec des animations fluides et un matching IA</string>
+    <string name="onboarding_title_3">Chattez en Temps Réel</string>
+    <string name="onboarding_desc_3">Messagerie instantanée avec vos matchs dans une interface futuriste</string>
+    <string name="get_started">Commencer</string>
+    <string name="skip">Passer</string>
+    
+    <!-- Authentication -->
+    <string name="welcome_back">Bon Retour</string>
+    <string name="sign_in_subtitle">Connectez-vous pour continuer votre voyage</string>
+    <string name="email">Email</string>
+    <string name="password">Mot de passe</string>
+    <string name="name">Nom</string>
+    <string name="sign_in">Se Connecter</string>
+    <string name="sign_up">S\'inscrire</string>
+    <string name="or">OU</string>
+    <string name="sign_in_google">Continuer avec Google</string>
+    <string name="sign_in_phone">Continuer avec Téléphone</string>
+    <string name="forgot_password">Mot de passe oublié?</string>
+    <string name="dont_have_account">Pas de compte?</string>
+    <string name="already_have_account">Déjà un compte?</string>
+    
+    <!-- Profile Creation -->
+    <string name="create_profile">Créez Votre Profil</string>
+    <string name="age">Âge</string>
+    <string name="gender">Genre</string>
+    <string name="male">Homme</string>
+    <string name="female">Femme</string>
+    <string name="non_binary">Non-Binaire</string>
+    <string name="upload_photo">Télécharger une Photo</string>
+    <string name="scanning_image">Scan de l\'image...</string>
+    <string name="upload_success">Téléchargement réussi!</string>
+    <string name="select_interests">Sélectionnez Vos Intérêts</string>
+    <string name="continue_btn">Continuer</string>
+    
+    <!-- Interests -->
+    <string name="music">Musique</string>
+    <string name="travel">Voyage</string>
+    <string name="gaming">Jeux Vidéo</string>
+    <string name="fitness">Fitness</string>
+    <string name="art">Art</string>
+    <string name="technology">Technologie</string>
+    <string name="movies">Films</string>
+    <string name="books">Livres</string>
+    <string name="cooking">Cuisine</string>
+    <string name="sports">Sports</string>
+    
+    <!-- Swipe Screen -->
+    <string name="match_found">C\'est un Match!</string>
+    <string name="start_chatting">Commencer à Chatter</string>
+    <string name="keep_swiping">Continuer à Swiper</string>
+    <string name="no_more_profiles">Plus de profils à proximité</string>
+    
+    <!-- Navigation -->
+    <string name="discover">Découvrir</string>
+    <string name="matches">Matchs</string>
+    <string name="chat">Chat</string>
+    <string name="profile">Profil</string>
+    
+    <!-- Common -->
+    <string name="loading">Chargement...</string>
+    <string name="error">Erreur</string>
+    <string name="retry">Réessayer</string>
+    <string name="cancel">Annuler</string>
+    <string name="save">Sauvegarder</string>
+    <string name="logout">Déconnexion</string>
+    
+    <!-- Missing strings -->
+    <string name="its_a_match">C\'est un Match!</string>
+    <string name="edit_profile">Modifier le Profil</string>
+    <string name="settings">Paramètres</string>
+</resources>

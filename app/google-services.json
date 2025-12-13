@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "259445559488",
+    "project_id": "twinzy-app-87726",
+    "storage_bucket": "twinzy-app-87726.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259445559488:android:a0cff0f2626bf135e55d25",
+        "android_client_info": {
+          "package_name": "com.example.twinzy_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "259445559488-vnf2glfn44srqamj07kol7g8hlvqdnv0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.twinzy_app",
+            "certificate_hash": "5f173b1a5ad139cdaee5df93bdedcd49288e0cef"
+          }
+        },
+        {
+          "client_id": "259445559488-3d69uugiqinaa28l3rf17can82f9mhh0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYvGfiKABVa5py1SmoUyEnzTB3jsWiVKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "259445559488-3d69uugiqinaa28l3rf17can82f9mhh0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

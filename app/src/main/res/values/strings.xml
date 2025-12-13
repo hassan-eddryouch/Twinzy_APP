@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Twinzy</string>
+    
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Find Your Twin Soul</string>
+    <string name="onboarding_desc_1">Connect with people who share your vibe in the cyberpunk universe</string>
+    <string name="onboarding_title_2">Swipe Into the Future</string>
+    <string name="onboarding_desc_2">Experience next-gen dating with smooth animations and AI matching</string>
+    <string name="onboarding_title_3">Chat in Real-Time</string>
+    <string name="onboarding_desc_3">Instant messaging with your matches in a futuristic interface</string>
+    <string name="get_started">Get Started</string>
+    <string name="skip">Skip</string>
+    
+    <!-- Authentication -->
+    <string name="welcome_back">Welcome Back</string>
+    <string name="sign_in_subtitle">Sign in to continue your journey</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="or">OR</string>
+    <string name="sign_in_google">Continue with Google</string>
+    <string name="sign_in_phone">Continue with Phone</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="already_have_account">Already have an account?</string>
+    
+    <!-- Profile Creation -->
+    <string name="create_profile">Create Your Profile</string>
+    <string name="age">Age</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="non_binary">Non-Binary</string>
+    <string name="upload_photo">Upload Photo</string>
+    <string name="scanning_image">Scanning Image...</string>
+    <string name="upload_success">Upload Successful!</string>
+    <string name="select_interests">Select Your Interests</string>
+    <string name="continue_btn">Continue</string>
+    
+    <!-- Interests -->
+    <string name="music">Music</string>
+    <string name="travel">Travel</string>
+    <string name="gaming">Gaming</string>
+    <string name="fitness">Fitness</string>
+    <string name="art">Art</string>
+    <string name="technology">Technology</string>
+    <string name="movies">Movies</string>
+    <string name="books">Books</string>
+    <string name="cooking">Cooking</string>
+    <string name="sports">Sports</string>
+    
+    <!-- Swipe Screen -->
+    <string name="match_found">It\'s a Match!</string>
+    <string name="start_chatting">Start Chatting</string>
+    <string name="keep_swiping">Keep Swiping</string>
+    <string name="no_more_profiles">No more profiles nearby</string>
+    
+    <!-- Navigation -->
+    <string name="discover">Discover</string>
+    <string name="matches">Matches</string>
+    <string name="chat">Chat</string>
+    <string name="profile">Profile</string>
+    
+    <!-- Common -->
+    <string name="loading">Loading...</string>
+    <string name="error">Error</string>
+    <string name="retry">Retry</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="logout">Logout</string>
+    
+    <!-- Missing strings -->
+    <string name="its_a_match">It\'s a Match!</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="settings">Settings</string>
+    
+    <!-- Google Sign-In -->
+    <string name="default_web_client_id">259445559488-3d69uugiqinaa28l3rf17can82f9mhh0.apps.googleusercontent.com</string>
+</resources>

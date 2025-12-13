@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Twinzy</string>
+    
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">اعثر على توأم روحك</string>
+    <string name="onboarding_desc_1">تواصل مع أشخاص يشاركونك أسلوبك في عالم السايبربانك</string>
+    <string name="onboarding_title_2">اسحب نحو المستقبل</string>
+    <string name="onboarding_desc_2">جرب المواعدة من الجيل التالي مع رسوم متحركة سلسة ومطابقة بالذكاء الاصطناعي</string>
+    <string name="onboarding_title_3">دردش في الوقت الفعلي</string>
+    <string name="onboarding_desc_3">مراسلة فورية مع تطابقاتك في واجهة مستقبلية</string>
+    <string name="get_started">ابدأ الآن</string>
+    <string name="skip">تخطي</string>
+    
+    <!-- Authentication -->
+    <string name="welcome_back">مرحباً بعودتك</string>
+    <string name="sign_in_subtitle">سجل الدخول لمتابعة رحلتك</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="password">كلمة المرور</string>
+    <string name="name">الاسم</string>
+    <string name="sign_in">تسجيل الدخول</string>
+    <string name="sign_up">إنشاء حساب</string>
+    <string name="or">أو</string>
+    <string name="sign_in_google">المتابعة مع Google</string>
+    <string name="sign_in_phone">المتابعة مع الهاتف</string>
+    <string name="forgot_password">نسيت كلمة المرور؟</string>
+    <string name="dont_have_account">ليس لديك حساب؟</string>
+    <string name="already_have_account">لديك حساب بالفعل؟</string>
+    
+    <!-- Profile Creation -->
+    <string name="create_profile">أنشئ ملفك الشخصي</string>
+    <string name="age">العمر</string>
+    <string name="gender">الجنس</string>
+    <string name="male">ذكر</string>
+    <string name="female">أنثى</string>
+    <string name="non_binary">غير ثنائي</string>
+    <string name="upload_photo">رفع صورة</string>
+    <string name="scanning_image">جاري فحص الصورة...</string>
+    <string name="upload_success">تم الرفع بنجاح!</string>
+    <string name="select_interests">اختر اهتماماتك</string>
+    <string name="continue_btn">متابعة</string>
+    
+    <!-- Interests -->
+    <string name="music">موسيقى</string>
+    <string name="travel">سفر</string>
+    <string name="gaming">ألعاب</string>
+    <string name="fitness">لياقة</string>
+    <string name="art">فن</string>
+    <string name="technology">تكنولوجيا</string>
+    <string name="movies">أفلام</string>
+    <string name="books">كتب</string>
+    <string name="cooking">طبخ</string>
+    <string name="sports">رياضة</string>
+    
+    <!-- Swipe Screen -->
+    <string name="match_found">إنه تطابق!</string>
+    <string name="start_chatting">ابدأ المحادثة</string>
+    <string name="keep_swiping">استمر في السحب</string>
+    <string name="no_more_profiles">لا توجد ملفات شخصية أخرى قريبة</string>
+    
+    <!-- Navigation -->
+    <string name="discover">اكتشف</string>
+    <string name="matches">التطابقات</string>
+    <string name="chat">دردشة</string>
+    <string name="profile">الملف الشخصي</string>
+    
+    <!-- Common -->
+    <string name="loading">جاري التحميل...</string>
+    <string name="error">خطأ</string>
+    <string name="retry">إعادة المحاولة</string>
+    <string name="cancel">إلغاء</string>
+    <string name="save">حفظ</string>
+    <string name="logout">تسجيل الخروج</string>
+    
+    <!-- Missing strings -->
+    <string name="its_a_match">إنه تطابق!</string>
+    <string name="edit_profile">تعديل الملف الشخصي</string>
+    <string name="settings">الإعدادات</string>
+</resources>

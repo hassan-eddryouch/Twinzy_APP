@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Cyberpunk Theme Colors -->
+    <color name="deep_void">#050511</color>
+    <color name="neon_cyan">#00F0FF</color>
+    <color name="hot_pink">#FF0099</color>
+    
+    <!-- Glass Surface Colors -->
+    <color name="glass_surface">#1A1A2E</color>
+    <color name="glass_surface_variant">#16213E</color>
+    
+    <!-- Text Colors -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B0B0B0</color>
+    <color name="text_tertiary">#808080</color>
+    
+    <!-- Accent Variations -->
+    <color name="neon_cyan_dim">#0080AA</color>
+    <color name="hot_pink_dim">#CC0077</color>
+    
+    <!-- Status Colors -->
+    <color name="success">#00FF88</color>
+    <color name="warning">#FFB800</color>
+    <color name="error">#FF4444</color>
+    
+    <!-- Transparent Overlays -->
+    <color name="overlay_dark">#80000000</color>
+    <color name="overlay_glass">#40FFFFFF</color>
+</resources>
