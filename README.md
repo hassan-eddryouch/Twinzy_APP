@@ -27,47 +27,6 @@ A production-ready dating application built with Jetpack Compose featuring a stu
 - **Image Loading**: Coil
 - **Localization**: English, French, Arabic
 
-## 📦 Setup Instructions
-
-### 1. Firebase Configuration
-
-1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
-2. Add an Android app with package name: `com.example.twinzy_app`
-3. Download `google-services.json` and place it in `app/` directory
-4. Enable Authentication methods:
-   - Email/Password
-   - Google Sign-In
-   - Phone Authentication
-
-### 2. Google Sign-In Setup
-
-1. In Firebase Console, go to Authentication > Sign-in method > Google
-2. Enable Google Sign-In
-3. Copy the Web client ID
-4. Replace `YOUR_WEB_CLIENT_ID` in `AuthScreen.kt` with your Web client ID
-
-### 3. Cloudinary Configuration
-
-1. Create account at [Cloudinary](https://cloudinary.com/)
-2. Get your credentials from Dashboard
-3. Update the following files with your Cloudinary credentials:
-   - `CloudinaryManager.kt`
-   - `TwinzyApp.kt`
-
-Replace:
-```kotlin
-"cloud_name" to "YOUR_CLOUD_NAME",
-"api_key" to "YOUR_API_KEY",
-"api_secret" to "YOUR_API_SECRET"
-```
-
-### 4. Build & Run
-
-```bash
-./gradlew clean build
-./gradlew installDebug
-```
-
 ## 📱 Features Implemented
 
 ### Phase A: Onboarding
@@ -129,11 +88,6 @@ The app supports 3 languages:
 - French (fr)
 - Arabic (ar)
 
-All strings are externalized in `strings.xml` files under:
-- `res/values/` (English)
-- `res/values-fr/` (French)
-- `res/values-ar/` (Arabic)
-
 ## 🎨 Theme System
 
 ### Colors
@@ -147,37 +101,6 @@ All animations use Spring physics with:
 - `dampingRatio = Spring.DampingRatioMediumBouncy`
 - `stiffness = Spring.StiffnessLow`
 
-## 📝 Firebase Firestore Structure
-
-```
-users/
-  {userId}/
-    - uid: String
-    - name: String
-    - age: Int
-    - gender: String
-    - bio: String
-    - photos: List<String>
-    - interests: List<String>
-    - location: GeoPoint
-    - fcmToken: String
-    - isOnline: Boolean
-    - lastActive: Timestamp
-
-matches/
-  {matchId}/
-    - user1Id: String
-    - user2Id: String
-    - timestamp: Timestamp
-    - lastMessage: String
-    - unreadCount: Int
-
-swipes/
-  {userId}/
-    - likedUsers: List<String>
-    - dislikedUsers: List<String>
-    - superLikedUsers: List<String>
-```
 
 ## 🚀 Performance Optimizations
 
