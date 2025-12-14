@@ -130,6 +130,26 @@ class ChatViewModel @Inject constructor(
         return otherUser?.uid
     }
     
+    fun onMessageEdit(messageId: String, newContent: String) {
+        viewModelScope.launch {
+            try {
+                chatRepository.editMessage(currentMatchId, messageId, newContent)
+            } catch (e: Exception) {
+                // Silently handle error
+            }
+        }
+    }
+    
+    fun onMessageDelete(messageId: String) {
+        viewModelScope.launch {
+            try {
+                chatRepository.deleteMessage(currentMatchId, messageId)
+            } catch (e: Exception) {
+                // Silently handle error
+            }
+        }
+    }
+    
     fun refresh() {
         if (currentMatchId.isNotEmpty() && otherUserId.isNotEmpty()) {
             loadChatData()

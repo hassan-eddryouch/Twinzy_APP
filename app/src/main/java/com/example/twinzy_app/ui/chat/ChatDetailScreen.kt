@@ -1,7 +1,9 @@
 package com.example.twinzy_app.ui.chat
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -223,7 +225,9 @@ fun ChatDetailScreen(
                         items(state.messages) { message ->
                             MessageBubble(
                                 message = message,
-                                isFromCurrentUser = message.senderId == currentUserId
+                                isFromCurrentUser = message.senderId == currentUserId,
+                                onEdit = { messageId, newContent -> viewModel.onMessageEdit(messageId, newContent) },
+                                onDelete = { messageId -> viewModel.onMessageDelete(messageId) }
                             )
                         }
                     }
@@ -233,11 +237,18 @@ fun ChatDetailScreen(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun MessageBubble(
     message: com.example.twinzy_app.data.model.Message,
-    isFromCurrentUser: Boolean
+    isFromCurrentUser: Boolean,
+    onEdit: (String, String) -> Unit,
+    onDelete: (String) -> Unit
 ) {
+    var showContextMenu by remember { mutableStateOf(false) }
+    var showEditDialog by remember { mutableStateOf(false) }
+    var editText by remember { mutableStateOf("") }
+    
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = if (isFromCurrentUser) Arrangement.End else Arrangement.Start
@@ -252,7 +263,16 @@ private fun MessageBubble(
                 bottomStart = if (isFromCurrentUser) 16.dp else 4.dp,
                 bottomEnd = if (isFromCurrentUser) 4.dp else 16.dp
             ),
-            modifier = Modifier.widthIn(max = 280.dp)
+            modifier = Modifier
+                .widthIn(max = 280.dp)
+                .then(
+                    if (isFromCurrentUser) {
+                        Modifier.combinedClickable(
+                            onLongClick = { showContextMenu = true },
+                            onClick = {}
+                        )
+                    } else Modifier
+                )
         ) {
             Column(
                 modifier = Modifier.padding(12.dp)
@@ -274,7 +294,89 @@ private fun MessageBubble(
                         contentScale = ContentScale.Crop
                     )
                 }
+                
+                Spacer(modifier = Modifier.height(4.dp))
+                
+                Text(
+                    text = java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault())
+                        .format(java.util.Date(message.timestamp)),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = if (isFromCurrentUser) DeepVoid.copy(alpha = 0.7f) else TextSecondary,
+                    modifier = Modifier.align(Alignment.End)
+                )
             }
         }
+    }
+    
+    if (showContextMenu) {
+        AlertDialog(
+            onDismissRequest = { showContextMenu = false },
+            title = { Text("Message Options", color = TextPrimary) },
+            text = {
+                Column {
+                    TextButton(
+                        onClick = {
+                            editText = message.text
+                            showContextMenu = false
+                            showEditDialog = true
+                        }
+                    ) {
+                        Text("Edit", color = NeonCyan)
+                    }
+                    TextButton(
+                        onClick = {
+                            onDelete(message.messageId)
+                            showContextMenu = false
+                        }
+                    ) {
+                        Text("Delete", color = ErrorRed)
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = { showContextMenu = false }) {
+                    Text("Cancel", color = TextSecondary)
+                }
+            },
+            containerColor = GlassSurface
+        )
+    }
+    
+    if (showEditDialog) {
+        AlertDialog(
+            onDismissRequest = { showEditDialog = false },
+            title = { Text("Edit Message", color = TextPrimary) },
+            text = {
+                OutlinedTextField(
+                    value = editText,
+                    onValueChange = { editText = it },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedTextColor = TextPrimary,
+                        unfocusedTextColor = TextPrimary,
+                        focusedBorderColor = NeonCyan,
+                        unfocusedBorderColor = GlassSurface,
+                        cursorColor = NeonCyan
+                    )
+                )
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        if (editText.isNotBlank()) {
+                            onEdit(message.messageId, editText)
+                        }
+                        showEditDialog = false
+                    }
+                ) {
+                    Text("Save", color = NeonCyan)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showEditDialog = false }) {
+                    Text("Cancel", color = TextSecondary)
+                }
+            },
+            containerColor = GlassSurface
+        )
     }
 }

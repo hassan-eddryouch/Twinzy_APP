@@ -190,4 +190,32 @@ class ChatRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun editMessage(matchId: String, messageId: String, newContent: String): Result<Unit> {
+        return try {
+            firestore.collection(Constants.COLLECTION_MATCHES)
+                .document(matchId)
+                .collection(Constants.SUB_COLLECTION_CHAT)
+                .document(messageId)
+                .update("text", newContent)
+                .await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun deleteMessage(matchId: String, messageId: String): Result<Unit> {
+        return try {
+            firestore.collection(Constants.COLLECTION_MATCHES)
+                .document(matchId)
+                .collection(Constants.SUB_COLLECTION_CHAT)
+                .document(messageId)
+                .delete()
+                .await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }
