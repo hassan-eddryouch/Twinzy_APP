@@ -26,6 +26,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.twinzy_app.ui.components.glassmorphism
 import com.example.twinzy_app.ui.components.neonGlow
+import com.example.twinzy_app.ui.components.MatchCard
 import com.example.twinzy_app.ui.theme.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -126,138 +127,7 @@ private fun MatchesList(
     }
 }
 
-@Composable
-private fun MatchCard(
-    matchWithUser: MatchWithUser,
-    onClick: () -> Unit,
-    onUnmatch: () -> Unit
-) {
-    var showUnmatchDialog by remember { mutableStateOf(false) }
-    val user = matchWithUser.otherUser
-    
-    if (showUnmatchDialog) {
-        androidx.compose.material3.AlertDialog(
-            onDismissRequest = { showUnmatchDialog = false },
-            title = { Text("Unmatch ${user.name}?") },
-            text = { Text("This action cannot be undone.") },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        onUnmatch()
-                        showUnmatchDialog = false
-                    }
-                ) {
-                    Text("Unmatch", color = ErrorRed)
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { showUnmatchDialog = false }) {
-                    Text("Cancel")
-                }
-            }
-        )
-    }
-
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .glassmorphism(cornerRadius = 16.dp)
-            .clickable(onClick = onClick),
-        shape = RoundedCornerShape(16.dp),
-        color = Color.Transparent
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(Dimensions.paddingMedium),
-            horizontalArrangement = Arrangement.spacedBy(Dimensions.spacingMedium)
-        ) {
-            Box {
-                Box(
-                    modifier = Modifier
-                        .size(64.dp + 6.dp)
-                        .then(
-                            if (user.isOnline) Modifier.neonGlow(NeonCyan, 32.dp, 8.dp)
-                            else Modifier
-                        )
-                        .border(
-                            width = 2.dp,
-                            brush = if (user.isOnline) 
-                                Brush.sweepGradient(listOf(NeonCyan, NeonMagenta, NeonCyan))
-                            else 
-                                androidx.compose.ui.graphics.SolidColor(Color.Transparent),
-                            shape = CircleShape
-                        )
-                        .padding(4.dp)
-                ) {
-                    AsyncImage(
-                        model = user.photos.firstOrNull(),
-                        contentDescription = "Profile photo",
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .clip(CircleShape)
-                            .background(DarkSurfaceVariant),
-                        contentScale = ContentScale.Crop
-                    )
-                }
-
-                if (user.isOnline) {
-                    Box(
-                        modifier = Modifier
-                            .size(14.dp)
-                            .align(Alignment.BottomEnd)
-                            .background(NeonCyan, CircleShape)
-                            .border(2.dp, DarkBackground, CircleShape)
-                    )
-                }
-            }
-
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .align(Alignment.CenterVertically),
-                verticalArrangement = Arrangement.spacedBy(Dimensions.spacingExtraSmall)
-            ) {
-                Text(
-                    text = "${user.name}, ${user.age}",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = TextPrimary,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.Chat,
-                        contentDescription = null,
-                        tint = NeonCyan,
-                        modifier = Modifier.size(16.dp)
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(
-                        text = "Say hi to ${user.name}! 👋",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = TextSecondary
-                    )
-                }
-            }
-
-            IconButton(
-                onClick = { showUnmatchDialog = true },
-                modifier = Modifier.align(Alignment.CenterVertically)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.MoreVert,
-                    contentDescription = "More options",
-                    tint = TextSecondary
-                )
-            }
-        }
-    }
-}
+// MatchCard is now in separate component file
 
 @Composable
 private fun LoadingState() {

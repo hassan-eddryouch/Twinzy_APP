@@ -379,11 +379,28 @@ class AuthRepositoryImpl @Inject constructor(
         return try {
             val userId = auth.currentUser?.uid ?: throw Exception("No user signed in")
 
-            // Delete user data from Firestore
-            firestore.collection(Constants.COLLECTION_USERS)
-                .document(userId)
-                .delete()
-                .await()
+            // Delete all user-related data from Firestore
+            val batch = firestore.batch()
+            
+            // Delete user profile
+            batch.delete(firestore.collection("users").document(userId))
+            
+            // Delete user swipes
+            batch.delete(firestore.collection("swipes").document(userId))
+            
+            // Delete matches where user is involved
+            val matchesQuery = firestore.collection("matches")
+                .whereEqualTo("user1Id", userId)
+                .get().await()
+            matchesQuery.documents.forEach { batch.delete(it.reference) }
+            
+            val matchesQuery2 = firestore.collection("matches")
+                .whereEqualTo("user2Id", userId)
+                .get().await()
+            matchesQuery2.documents.forEach { batch.delete(it.reference) }
+            
+            // Commit batch delete
+            batch.commit().await()
 
             // Delete authentication account
             auth.currentUser?.delete()?.await()

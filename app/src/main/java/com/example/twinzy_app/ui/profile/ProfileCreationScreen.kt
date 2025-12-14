@@ -109,68 +109,12 @@ fun ProfileCreationScreen(
             Spacer(modifier = Modifier.height(32.dp))
             
             // Photo Upload Section
-            Box(
-                modifier = Modifier
-                    .size(160.dp)
-                    .clip(CircleShape)
-                    .background(
-                        Brush.radialGradient(
-                            listOf(GlassSurface, DeepVoid.copy(alpha = 0.8f))
-                        )
-                    )
-                    .border(
-                        width = 2.dp,
-                        brush = Brush.sweepGradient(listOf(NeonCyan, HotPink, NeonCyan)),
-                        shape = CircleShape
-                    )
-                    .clickable { imagePickerLauncher.launch("image/*") },
-                contentAlignment = Alignment.Center
-            ) {
-                when {
-                    selectedImageUri != null -> {
-                        AsyncImage(
-                            model = selectedImageUri,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .clip(CircleShape),
-                            contentScale = ContentScale.Crop
-                        )
-                        
-                        if (uiState.isUploading) {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .background(DeepVoid.copy(alpha = 0.8f))
-                                    .clip(CircleShape),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator(
-                                    color = NeonCyan,
-                                    strokeWidth = 3.dp,
-                                    modifier = Modifier.size(40.dp)
-                                )
-                            }
-                        }
-                    }
-                    else -> {
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Icon(
-                                Icons.Default.AddAPhoto,
-                                contentDescription = null,
-                                tint = NeonCyan,
-                                modifier = Modifier.size(48.dp)
-                            )
-                            Spacer(modifier = Modifier.height(8.dp))
-                            Text(
-                                text = "Add Photo",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = TextSecondary
-                            )
-                        }
-                    }
-                }
-            }
+            PhotoUploadSection(
+                selectedImageUri = selectedImageUri,
+                isUploading = uiState.isUploading,
+                uploadedImageUrl = uiState.uploadedImageUrl,
+                onImageClick = { imagePickerLauncher.launch("image/*") }
+            )
             
             Spacer(modifier = Modifier.height(32.dp))
             
@@ -482,6 +426,127 @@ fun CyberTextField(
             unfocusedContainerColor = GlassSurface.copy(alpha = 0.1f)
         )
     )
+}
+
+@Composable
+fun PhotoUploadSection(
+    selectedImageUri: Uri?,
+    isUploading: Boolean,
+    uploadedImageUrl: String?,
+    onImageClick: () -> Unit
+) {
+    var showSuccessAnimation by remember { mutableStateOf(false) }
+    
+    val successScale by animateFloatAsState(
+        targetValue = if (showSuccessAnimation) 1.2f else 1f,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessLow
+        ),
+        label = "successScale"
+    )
+    
+    val successAlpha by animateFloatAsState(
+        targetValue = if (showSuccessAnimation) 1f else 0f,
+        animationSpec = tween(300),
+        label = "successAlpha"
+    )
+    
+    LaunchedEffect(uploadedImageUrl) {
+        if (uploadedImageUrl != null && !isUploading) {
+            showSuccessAnimation = true
+            kotlinx.coroutines.delay(800)
+            showSuccessAnimation = false
+        }
+    }
+    
+    Box(
+        modifier = Modifier
+            .size(160.dp)
+            .scale(if (uploadedImageUrl != null && !isUploading) successScale else 1f)
+            .clip(CircleShape)
+            .background(
+                Brush.radialGradient(
+                    listOf(GlassSurface, DeepVoid.copy(alpha = 0.8f))
+                )
+            )
+            .border(
+                width = 2.dp,
+                brush = Brush.sweepGradient(listOf(NeonCyan, HotPink, NeonCyan)),
+                shape = CircleShape
+            )
+            .clickable { onImageClick() },
+        contentAlignment = Alignment.Center
+    ) {
+        when {
+            selectedImageUri != null -> {
+                AsyncImage(
+                    model = selectedImageUri,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop
+                )
+                
+                if (isUploading) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(DeepVoid.copy(alpha = 0.9f))
+                            .clip(CircleShape),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CyberScanningEffect(
+                            modifier = Modifier.fillMaxSize(),
+                            isScanning = true
+                        )
+                    }
+                }
+                
+                // Success animation overlay
+                if (showSuccessAnimation) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(
+                                Brush.radialGradient(
+                                    listOf(
+                                        Success.copy(alpha = successAlpha * 0.3f),
+                                        androidx.compose.ui.graphics.Color.Transparent
+                                    )
+                                )
+                            )
+                            .clip(CircleShape),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            Icons.Default.CheckCircle,
+                            contentDescription = null,
+                            tint = Success.copy(alpha = successAlpha),
+                            modifier = Modifier.size(48.dp)
+                        )
+                    }
+                }
+            }
+            else -> {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Icon(
+                        Icons.Default.AddAPhoto,
+                        contentDescription = null,
+                        tint = NeonCyan,
+                        modifier = Modifier.size(48.dp)
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = "Add Photo",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = TextSecondary
+                    )
+                }
+            }
+        }
+    }
 }
 
 @Composable

@@ -147,4 +147,47 @@ class ChatRepositoryImpl @Inject constructor(
                 })
                 .dispatch()
         }
+
+    override fun observeLastMessage(matchId: String): Flow<Message?> {
+        if (matchId.isEmpty()) {
+            return flow { emit(null) }
+        }
+        
+        return callbackFlow {
+            try {
+                val listener = firestore.collection(Constants.COLLECTION_MATCHES)
+                    .document(matchId)
+                    .collection(Constants.SUB_COLLECTION_CHAT)
+                    .orderBy("timestamp", Query.Direction.DESCENDING)
+                    .limit(1)
+                    .addSnapshotListener { snapshot, error ->
+                        if (error != null) {
+                            trySend(null)
+                            return@addSnapshotListener
+                        }
+
+                        val lastMessage = try {
+                            snapshot?.documents?.firstOrNull()?.let { doc ->
+                                doc.toObject(Message::class.java)?.copy(messageId = doc.id)
+                            }
+                        } catch (e: Exception) {
+                            null
+                        }
+
+                        trySend(lastMessage)
+                    }
+
+                awaitClose { 
+                    try {
+                        listener.remove()
+                    } catch (e: Exception) {
+                        // Ignore
+                    }
+                }
+            } catch (e: Exception) {
+                trySend(null)
+                close()
+            }
+        }
+    }
 }

@@ -26,8 +26,21 @@ fun SettingsScreen(
     onNavigateToEditProfile: () -> Unit = {},
     onNavigateToBlockedUsers: () -> Unit = {},
     onSignOut: () -> Unit = {},
+    onNavigateToAuth: () -> Unit = {},
     viewModel: SettingsViewModel = hiltViewModel()
 ) {
+    // Handle navigation events
+    LaunchedEffect(Unit) {
+        viewModel.signOutEvent.collect {
+            onSignOut()
+        }
+    }
+    
+    LaunchedEffect(Unit) {
+        viewModel.navigateToAuthEvent.collect {
+            onNavigateToAuth()
+        }
+    }
     var showNotifications by remember { mutableStateOf(true) }
     var showOnlineStatus by remember { mutableStateOf(true) }
     var showDistance by remember { mutableStateOf(true) }
@@ -36,6 +49,7 @@ fun SettingsScreen(
     var ageRangeEnd by remember { mutableFloatStateOf(35f) }
     var showSignOutDialog by remember { mutableStateOf(false) }
     var showLanguageDialog by remember { mutableStateOf(false) }
+    var showDeleteAccountDialog by remember { mutableStateOf(false) }
     val uiState by viewModel.uiState.collectAsState()
     
     val languages = listOf(
@@ -224,6 +238,15 @@ fun SettingsScreen(
                             subtitle = "Manage blocked accounts",
                             onClick = onNavigateToBlockedUsers
                         )
+                        
+                        HorizontalDivider(color = MaterialTheme.customColors.glassBorder, modifier = Modifier.padding(horizontal = 16.dp))
+                        
+                        SettingsItem(
+                            icon = Icons.Default.DeleteForever,
+                            title = "Delete Account",
+                            subtitle = "Permanently delete your account",
+                            onClick = { showDeleteAccountDialog = true }
+                        )
                     }
                 }
             }
@@ -307,7 +330,7 @@ fun SettingsScreen(
                 TextButton(
                     onClick = {
                         showSignOutDialog = false
-                        onSignOut()
+                        viewModel.onSignOutClicked()
                     }
                 ) {
                     Text(
@@ -380,6 +403,62 @@ fun SettingsScreen(
             dismissButton = {
                 TextButton(
                     onClick = { showLanguageDialog = false }
+                ) {
+                    Text(
+                        text = "Cancel",
+                        color = MaterialTheme.customColors.primary
+                    )
+                }
+            },
+            containerColor = GlassSurface
+        )
+    }
+    
+    if (showDeleteAccountDialog) {
+        AlertDialog(
+            onDismissRequest = { showDeleteAccountDialog = false },
+            title = {
+                Text(
+                    text = "Delete Account",
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.Bold,
+                    color = ErrorRed
+                )
+            },
+            text = {
+                Text(
+                    text = "This action cannot be undone. All your data, matches, and messages will be permanently deleted.",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = TextSecondary
+                )
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showDeleteAccountDialog = false
+                        viewModel.onDeleteAccountConfirmed()
+                    },
+                    enabled = !uiState.isLoading
+                ) {
+                    if (uiState.isLoading) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(16.dp),
+                            color = ErrorRed,
+                            strokeWidth = 2.dp
+                        )
+                    } else {
+                        Text(
+                            text = "Delete",
+                            color = ErrorRed,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = { showDeleteAccountDialog = false },
+                    enabled = !uiState.isLoading
                 ) {
                     Text(
                         text = "Cancel",

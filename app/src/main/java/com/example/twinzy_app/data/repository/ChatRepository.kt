@@ -22,6 +22,7 @@ import kotlin.math.*
 
 interface ChatRepository {
     fun observeMessages(matchId: String): Flow<List<Message>>
+    fun observeLastMessage(matchId: String): Flow<Message?>
     suspend fun sendMessage(message: Message): Result<Unit>
     suspend fun markMessageAsRead(matchId: String, messageId: String): Result<Unit>
     suspend fun sendImage(matchId: String, senderId: String, imageUri: Uri): Result<Unit>

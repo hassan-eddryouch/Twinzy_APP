@@ -30,6 +30,7 @@ import com.example.twinzy_app.ui.theme.*
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
+@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 @Composable
 fun SwipeCard(
     userProfile: UserProfile,
@@ -122,8 +123,11 @@ fun SwipeCard(
                 AsyncImage(
                     model = userProfile.user.photos.getOrNull(currentPhotoIndex),
                     contentDescription = "Profile photo",
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(RoundedCornerShape(Dimensions.cornerRadiusLarge)),
+                    contentScale = ContentScale.Crop,
+                    alignment = androidx.compose.ui.Alignment.Center
                 )
 
                 Box(
@@ -259,6 +263,28 @@ fun SwipeCard(
                         }
                     }
 
+                    // Interests Chips
+                    if (userProfile.user.interests.isNotEmpty()) {
+                        androidx.compose.foundation.layout.FlowRow(
+                            horizontalArrangement = Arrangement.spacedBy(6.dp),
+                            verticalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            userProfile.user.interests.take(4).forEach { interest ->
+                                DiscoverInterestChip(text = interest)
+                            }
+                            if (userProfile.user.interests.size > 4) {
+                                Text(
+                                    text = "+${userProfile.user.interests.size - 4}",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = Color.White.copy(alpha = 0.8f),
+                                    modifier = Modifier.padding(horizontal = 4.dp)
+                                )
+                            }
+                        }
+                        
+                        Spacer(modifier = Modifier.height(8.dp))
+                    }
+
                     if (userProfile.user.bio.isNotEmpty()) {
                         Text(
                             text = userProfile.user.bio,
@@ -271,5 +297,36 @@ fun SwipeCard(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun DiscoverInterestChip(text: String) {
+    Box(
+        modifier = Modifier
+            .clip(RoundedCornerShape(16.dp))
+            .background(
+                Brush.linearGradient(
+                    colors = listOf(
+                        Color.Black.copy(alpha = 0.6f),
+                        Color.Black.copy(alpha = 0.4f)
+                    )
+                )
+            )
+            .border(
+                width = 1.dp,
+                color = NeonCyan.copy(alpha = 0.8f),
+                shape = RoundedCornerShape(16.dp)
+            )
+            .padding(horizontal = 12.dp, vertical = 6.dp)
+    ) {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.labelMedium,
+            color = NeonCyan,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            fontWeight = FontWeight.Medium
+        )
     }
 }
